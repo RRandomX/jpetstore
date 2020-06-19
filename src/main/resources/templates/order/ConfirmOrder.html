@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>确认订单 MyPetStore</title>
+    <link rel="StyleSheet" href="../css/jpetstore.css" type="text/css" media="screen"/>
+</head>
+<body>
+
+<header th:replace="common/top"></header>
+
+<div id="Content">
+    <div id="BackLink">
+        <a href="/catalog/index">Return to Main Menu</a>
+    </div>
+
+    <div id="Catalog">Please confirm the information below and then press continue...
+     <form th:object="${order}">
+         <table>
+             <tr>
+                 <th align="center" colspan="2"><font size="4"><b>Order</b></font>
+                     <br/>
+                     <font size="3"><b>
+                        <span th:text="${#dates.format(order.orderDate, 'yyyy-MM-dd HH:mm:ss')}">
+                            date</span>
+                         <!--                        <fmt:formatDate value="*{sessionScope.order.}" pattern="yyyy/MM/dd hh:mm:ss"/>-->
+                     </b></font>
+                 </th>
+             </tr>
+
+             <tr>
+                 <th colspan="2">Billing Address</th>
+             </tr>
+             <tr>
+                 <td>First name:</td>
+                 <td th:text="*{billToFirstName}">
+                 </td>
+             </tr>
+             <tr>
+                 <td>Last name:</td>
+                 <td th:text="*{billToLastName}">
+                     <!--                    <c:out value="*{sessionScope.order.billTo}"/>-->
+                 </td>
+             </tr>
+             <tr>
+                 <td>Address 1:</td>
+                 <td th:text="*{billAddress1}">
+                     <!--                    <c:out value="*{sessionScope.order.billAddress1}"/>-->
+                 </td>
+             </tr>
+             <tr>
+                 <td>Address 2:</td>
+                 <td th:text="*{billAddress2}">
+                     <!--                    <c:out value="*{sessionScope.order.billAddress2}"/>-->
+                 </td>
+             </tr>
+             <tr>
+                 <td>City:</td>
+                 <td th:text="*{billCity}">
+
+                 </td>
+             </tr>
+             <tr>
+                 <td>State:</td>
+                 <td th:text="*{billState}">
+
+                 </td>
+             </tr>
+             <tr>
+                 <td>Zip:</td>
+                 <td th:text="*{billZip}">
+
+                 </td>
+             </tr>
+             <tr>
+                 <td>Country:</td>
+                 <td th:text="*{billCountry}">
+
+                 </td>
+             </tr>
+             <tr>
+                 <th colspan="2">Shipping Address</th>
+             </tr>
+             <tr>
+                 <td>First name:</td>
+                 <td th:value="*{shipToFirstName}">
+
+                 </td>
+             </tr>
+             <tr>
+                 <td>Last name:</td>
+                 <td th:value="*{shipToLastName}">
+                 </td>
+             </tr>
+             <tr>
+                 <td>Address 1:</td>
+                 <td th:value="*{shipAddress1}">
+
+                 </td>
+             </tr>
+             <tr>
+                 <td>Address 2:</td>
+                 <td th:value="*{shipAddress2}">
+
+                 </td>
+             </tr>
+             <tr>
+                 <td>City:</td>
+                 <td th:value="*{shipCity}">
+
+                 </td>
+             </tr>
+             <tr>
+                 <td>State:</td>
+                 <td th:value="*{shipState}">
+
+                 </td>
+             </tr>
+             <tr>
+                 <td>Zip:</td>
+                 <td th:value="*{shipZip}">
+                 </td>
+             </tr>
+             <tr>
+                 <td>Country:</td>
+                 <td th:value="*{shipCountry}">
+                 </td>
+             </tr>
+
+         </table>
+     </form>   
+        
+        <a class="Button" href="/order/viewOrder">Confirm</a>
+    </div>
+
+</div>
+<footer th:replace="common/bottom"></footer>
+
+</div>
+</body>
+</html>

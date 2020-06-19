@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--此处xmlns是使用thymeleaf必须的-->
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="StyleSheet" href="../css/jpetstore.css" type="text/css" media="screen"/>
+</head>
+<body>
+<div th:replace="common/top">
+
+</div>
+<div id="Content">
+    <div id="BackLink">
+        <a href="/catalog/view">Return to Main Menu</a>
+    </div>
+
+    <div id="Catalog">
+        <h2 th:text="${category.name}">Catgory的name属性</h2>
+        <table>
+            <tr>
+                <th>Product ID</th>
+                <th>Name</th>
+            </tr>
+
+<!--            需要controller里面的-->
+            <tr th:each="product:${productList}">
+                <td><a th:href="@{/catalog/viewProduct?productId=}+${product.productId}" th:text="${product.productId}">Product ID</a></td>
+                <td th:text="${product.name}">Product Name</td>
+<!--    <td th:text="${product.productId}">productId</td>-->
+<!--                <td th:text="${product.name}">product name</td>-->
+            </tr>
+<!--            <c:forEach var="product" items="${sessionScope.productList}">-->
+<!--                <tr>-->
+<!--                    <td><a href="viewProduct?productId=${product.productId}">${product.productId}</a></td>-->
+<!--                    <td>${product.name}</td>-->
+<!--                </tr>-->
+<!--            </c:forEach>-->
+        </table>
+    </div>
+</div>
+<footer th:replace="common/bottom"></footer>
+<!--<div th:replace="common/bottom">-->
+<!--</div>-->
+</body>
+</html>
