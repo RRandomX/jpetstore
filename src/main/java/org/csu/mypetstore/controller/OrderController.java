@@ -97,7 +97,20 @@ public class OrderController {
     }
 
     @PostMapping("shipOrder")
-    public String shipOrder(@RequestParam Map<String,Object> params, HttpServletRequest request, Model model){
+    public String shipOrder(Model model,HttpServletRequest request, HttpServletResponse response){
+        String cardType = request.getParameter("cardType");
+        String creditCard = request.getParameter("creditCard");
+        String expiryDate = request.getParameter("expiryDate");
+
+        HttpSession session = request.getSession();
+        Order order = (Order)session.getAttribute("order");
+
+        order.setCardType(cardType);
+        order.setCreditCard(creditCard);
+        order.setExpiryDate(expiryDate);
+        //覆盖原来的order
+        System.out.println("order is"+order);
+        model.addAttribute("order",order);
         return "order/ShippingForm";
     }
 

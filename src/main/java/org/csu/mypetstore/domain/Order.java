@@ -38,6 +38,8 @@ public class Order {
     private List<LineItem> lineItems = new ArrayList<LineItem>();
 
     public void initOrder(Account account,Cart cart){
+
+        this.orderId = (int)System.currentTimeMillis() +(int)((Math.random() + 1) * 10000);
         this.username = account.getUsername();
         SimpleDateFormat Today = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
         String dateString = Today.format(new Date());
