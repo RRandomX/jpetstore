@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Map;
@@ -34,7 +35,6 @@ public class OrderController {
     public String viewOrder(Model model,HttpSession session){
         Order order = (Order) model.getAttribute("order");
         String view, msg;
-
         if (order != null) {
             orderService.insertOrder(order);
             model.addAttribute("cart",null);
@@ -87,31 +87,46 @@ public class OrderController {
         String shippingAddressRequired = request.getParameter("shippingAddressRequired");
         String view;
         Order order = (Order)model.getAttribute("order");
+        System.out.println("order is"+order);
         order.setCardType((String)params.get("cardType"));
         order.setCreditCard((String)params.get("creditCard"));
         order.setExpiryDate((String)params.get("expiryDate"));
         model.addAttribute("order",order);
 
-        if (shippingAddressRequired == null){
-            view = "order/ConfirmOrder";
-        }
-        else{
-            view = "order/ShippingForm";
-        }
-        return view;
+        return "order/ConfirmOrder";
+    }
+
+    @PostMapping("shipOrder")
+    public String shipOrder(@RequestParam Map<String,Object> params, HttpServletRequest request, Model model){
+        return "order/ShippingForm";
     }
 
     @PostMapping("shippingAddress")
-    public String updateAddress(@RequestParam Map<String,Object> params, Model model){
-        Order order = (Order) model.getAttribute("order");
-        order.setShipToFirstName((String) params.get("shipToFirstName"));
-        order.setShipToLastName((String) params.get("shipToLastName"));
-        order.setShipAddress1((String) params.get("shipAddress1"));
-        order.setShipAddress2((String) params.get("shipAddress2"));
-        order.setShipCity((String) params.get("shipCity"));
-        order.setShipState((String) params.get("shipState"));
-        order.setShipZip((String) params.get("shipZip"));
-        order.setShipCountry((String) params.get("shipCountry"));
+    public String updateAddress(Model model,HttpServletRequest request, HttpServletResponse response){
+        String shipToFirstName = request.getParameter("shipToFirstName");
+        String shipToLastName = request.getParameter("shipToLastName");
+        String shipAddress1 = request.getParameter("shipAddress1");
+        String shipAddress2 = request.getParameter("shipAddress2");
+        String shipCity = request.getParameter("shipCity");
+        String shipState = request.getParameter("shipState");
+        String shipZip = request.getParameter("shipZip");
+        String shipCountry = request.getParameter("shipCountry");
+        System.out.println(shipCountry);
+
+
+        HttpSession session = request.getSession();
+        Order order = (Order)session.getAttribute("order");
+
+        order.setShipToFirstName(shipToFirstName);
+        order.setShipToLastName(shipToLastName);
+        order.setShipAddress1(shipAddress1);
+        order.setShipAddress2(shipAddress2);
+        order.setShipCity(shipCity);
+        order.setShipState(shipState);
+        order.setShipZip(shipZip);
+        order.setShipCountry(shipCountry);
+        //覆盖原来的order
+        System.out.println("order is"+order);
         model.addAttribute("order",order);
         return "order/ConfirmOrder";
     }
