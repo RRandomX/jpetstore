@@ -18,46 +18,30 @@
     </div>
     <div id="Catalog">
         <table>
-            <tr>
-                <th>&nbsp;</th>
-                <th>Product ID</th>
-                <th>Name</th>
-            </tr>
-            <tr th:each="product:${productList}">
-<!--                下面这个不知道还有没有问题-->
-                <td>
-                    <label><img th:src="${product.descriptionImage}"></label>
-                    <label th:text="${product.descriptionText}"></label>
-                </td>
-                <td>
-                    <b>
-                        <a th:href="'/catalog/viewProduct?productId='+${product.productId}" >
-                            <font color="BLACK" th:text="${product.productId}">Product ID</font>
-                        </a>
-                    </b>
-                </td>
-                <td th:text="${product.name}">product的name属性</td>
-            </tr>
+            <table>
+                <tr>
+                    <th>&nbsp;</th>
+                    <th>Product ID</th>
+                    <th>Name</th>
+                </tr>
+                <tr th:each="product:${productList}">
+                    <td>
+                        <label><img th:src="${product.descriptionImage}"></label>
+                        <label th:text="${product.descriptionText}"></label>
+                    </td>
+                    <td>
+                        <b>
+                            <a th:href="@{'/catalog/viewProduct?productId='+${product.productId}}">
+                                <font color="BLACK" th:text="${product.productId}">Product ID</font>
+                            </a>
+                        </b>
+                    </td>
+                    <td th:text="${product.name}">
+                        Product Name
+                    </td>
+                </tr>
 
-<!--            <c:forEach var="product" items="${sessionScope.productList}">-->
-<!--                <tr>-->
-<!--                    <td>-->
-<!--                        <a href="viewProduct?productId=${product.productId}">${product.description}</a>-->
-<!--                    </td>-->
-<!--                    <td>-->
-<!--                        <b>-->
-<!--                            <a>-->
-<!--                                <font color="BLACK">-->
-<!--                                    <a href="viewProduct?productId=${product.productId}">${product.productId}</a>-->
-<!--                                </font>-->
-<!--                            </a>-->
-<!--                        </b>-->
-<!--                    </td>-->
-<!--                    <td>-->
-<!--                        ${product.name}-->
-<!--                    </td>-->
-<!--                </tr>-->
-<!--            </c:forEach>-->
+
             <tr>
                 <td></td>
             </tr>
